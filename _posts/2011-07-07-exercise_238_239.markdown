@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Exercises 2.38 & 2.39: fold-left and fold-right
+title: 'Exercise 2.38 & 2.39: Fold-left and fold-right'
 ---
 {{ page.title }}
 
