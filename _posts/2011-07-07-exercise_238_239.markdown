@@ -1,0 +1,132 @@
+---
+layout: default
+title: Exercises 2.38 & 2.39: fold-left and fold-right
+---
+{{ page.title }}
+
+These exercises didn't take too long to complete, but I'm still not sure I understand the implications of it, so I'm going to work through it here.
+
+The accumulate procedure in the text is the same as a Scheme procedure called fold-right. There's a similar procedure called fold-left that can be defined like this:
+{% highlight scheme %}
+(define (fold-left op initial sequence)
+  (define (iter result rest)
+    (if (null? rest)
+        result
+        (iter (op result (car rest))
+              (cdr rest))))
+  (iter initial sequence))
+{% endhighlight %}
+
+The first exercise has you work through some sample expressions to see how the two differ. Here are my expansions, using the substitution model we've been using in the text so far.
+
+{% highlight scheme %}
+(fold-right / 1 (list 1 2 3))
+(/ 1 (fold-right / 1 (list 2 3)))
+(/ 1 (/ 2 (/ 3 (fold-right / 1 (list)))))
+(/ 1 (/ 2 (/ 3 1)))
+(/ 1 (/ 2 3))
+(/ 1 2/3)
+3/2
+
+(fold-left / 1 (list 1 2 3))
+(iter 1 (list 1 2 3))
+(iter (/ 1 1) (list 2 3))
+(iter 1 (list 2 3))
+(iter (/ 1 2) (list 3))
+(iter 1/2 (list 3))
+(iter (/ 1/2 3) (list))
+(iter 1/6 (list))
+1/6
+
+;; or:
+(/ (/ (/ 1 1) 2) 3)
+
+{% endhighlight %}
+Just in case having the initial parameter the same as the first term of the list (i.e., the two 1's) is hiding an error, I'm going to do it again with my own list where every number is unique.
+{% highlight scm %}
+(fold-right / 1 (list 2 3 4))
+(/ 2 (fold-right / 1 (list 3 4)))
+(/ 2 (/ 3 (/ 4 (fold-right / 1 (list)))))
+(/ 2 (/ 3 (/ 4 1)))
+(/ 2 (/ 3 4))
+(/ 2 3/4)
+8/3
+
+
+(fold-left / 1 (list 2 3 4))
+(iter 1 (list 2 3 4))
+(iter (/ 1 2) (list 3 4))
+(iter 1/2 (list 3 44))
+(iter (/ 1/2 3) (list 4))
+(iter 1/6 (list 4))
+(iter (/ 1/6 4) (list))
+(iter 1/24 (list))
+1/24
+
+;; or:
+(/ (/ (/ 1 2) 3) 4)
+
+{% endhighlight %}
+With infix notation I could describe these as:
+
+(((1 ÷ 2) ÷ 3) ÷ 4) for fold-left and
+
+(2 ÷ (3 ÷ (4 ÷ 1))) for fold-right.
+
+For the mathematical operators above, fold-left conforms to what you would get if you were to work your way through the list from left to right with a calculator, as 1 ÷ 2 ÷ 3 ÷ 4 =.
+
+Moving on to the list operator:
+{% highlight scm %}
+;;fold-right
+(fold-right list nil (list 1 2 3))
+(list 1 (fold-right list nil (list 2 3))
+(list 1 (list 2 (fold-right list nil (list 3))))
+(list 1 (list 2 (list 3 (fold-right list nil (list)))))
+(list 1 (list 2 (list 3 '())))
+(list 1 (list 2 (3 ())))
+(list 1 (2 (3 ())))
+(1 (2 (3 ())))
+
+;;fold-left
+(fold-left list nil (list 1 2 3))
+(iter nil (list 1 2 3))
+(iter (list nil 1) (list 2 3))
+(iter (() 1) (list 2 3))
+(iter (list (() 1) 2) (list 3))
+(iter ((() 1) 2) (list 3))
+(iter (list ((() 1) 2) 3) (list))
+(iter (((() 1) 2) 3) (list))
+(((() 1) 2) 3)
+;; or:
+(list (list (list nil 3) 2) 1)
+
+{% endhighlight %}
+fold-right seems clear as a recursive process. You take the first item from the list and apply the operator to it and the fold-right of the remainder of the list. One confusing thing is that the initial term provided to the procedure feels like a terminal term when I work through the substitution: it's the last thing the operator works on when it reaches the end of the list. It is, I suppose, the first thing the get evaluated in the chain of deferred recursive expressions.
+
+I have a harder time describing fold-left. As noted above, it feels natural with mathematical operators and conforms to what I get from a calculator. As explained in this Stack Exchange question, these operators are left-associative, so fold-left feels natural. With other operators (like cons), fold-right starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either fold-left or fold-right.
+
+Exercise 2.39 has you define reverse in terms of both fold-left and fold-right. First, fold-right:
+
+Given a list (1 2 3), you need an operator (I'll call it op) such that
+
+(op 1 (op 2 (op 3 nil)))
+
+results in
+
+(3 2 1)
+
+(define (reverse sequence)
+  (fold-right (lambda (x y) (append y (list x))) nil sequence))
+For fold-left, you need an operator such that, given a list (1 2 3),
+
+(op (op (op nil 3) 2) 1)
+
+Evaluates to
+
+(3 2 1) 
+
+(define (reverse sequence)
+  (fold-left (lambda (x y) (cons y x)) nil sequence))
+It was easiest to look at the innermost expression and figure out a way to build the term I want.
+
+Working through these definitely helped my understanding, but it would take a lot more practice before either fold-left or fold-right feels natural, and before it's immediately obvious whether a left fold or right fold is the best fit for a given operation.
