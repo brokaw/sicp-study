@@ -2,11 +2,11 @@
 layout: default
 title: 'Exercise 2.38 & 2.39: Fold-left and fold-right'
 ---
-{{ page.title }}
+#{{ page.title }}
 
 These exercises didn't take too long to complete, but I'm still not sure I understand the implications of it, so I'm going to work through it here.
 
-The accumulate procedure in the text is the same as a Scheme procedure called fold-right. There's a similar procedure called fold-left that can be defined like this:
+The `accumulate` procedure in the text is the same as a Scheme procedure called `fold-right`. There's a similar procedure called `fold-left` that can be defined like this:
 {% highlight scheme %}
 (define (fold-left op initial sequence)
   (define (iter result rest)
@@ -69,11 +69,11 @@ Just in case having the initial parameter the same as the first term of the list
 {% endhighlight %}
 With infix notation I could describe these as:
 
-(((1 ÷ 2) ÷ 3) ÷ 4) for fold-left and
+`(((1 ÷ 2) ÷ 3) ÷ 4)` for `fold-left` and
 
-(2 ÷ (3 ÷ (4 ÷ 1))) for fold-right.
+`(2 ÷ (3 ÷ (4 ÷ 1)))` for `fold-right`.
 
-For the mathematical operators above, fold-left conforms to what you would get if you were to work your way through the list from left to right with a calculator, as 1 ÷ 2 ÷ 3 ÷ 4 =.
+For the mathematical operators above, `fold-left` conforms to what you would get if you were to work your way through the list from left to right with a calculator, as 1 ÷ 2 ÷ 3 ÷ 4 =.
 
 Moving on to the list operator:
 {% highlight scm %}
@@ -101,32 +101,37 @@ Moving on to the list operator:
 (list (list (list nil 3) 2) 1)
 
 {% endhighlight %}
-fold-right seems clear as a recursive process. You take the first item from the list and apply the operator to it and the fold-right of the remainder of the list. One confusing thing is that the initial term provided to the procedure feels like a terminal term when I work through the substitution: it's the last thing the operator works on when it reaches the end of the list. It is, I suppose, the first thing the get evaluated in the chain of deferred recursive expressions.
+`fold-right` seems clear as a recursive process. You take the first item from the list and apply the operator to it and the `fold-right` of the remainder of the list. One confusing thing is that the initial term provided to the procedure feels like a terminal term when I work through the substitution: it's the last thing the operator works on when it reaches the end of the list. It is, I suppose, the first thing the get evaluated in the chain of deferred recursive expressions.
 
-I have a harder time describing fold-left. As noted above, it feels natural with mathematical operators and conforms to what I get from a calculator. As explained in this Stack Exchange question, these operators are left-associative, so fold-left feels natural. With other operators (like cons), fold-right starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either fold-left or fold-right.
+I have a harder time describing `fold-left`. As noted above, it feels natural with mathematical operators and conforms to what I get from a calculator. As explained in this Stack Exchange question, these operators are left-associative, so `fold-left` feels natural. With other operators (like `cons`), `fold-right` starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either `fold-left` or `fold-right`.
 
-Exercise 2.39 has you define reverse in terms of both fold-left and fold-right. First, fold-right:
+Exercise 2.39 has you define reverse in terms of both `fold-left` and `fold-right`. First, `fold-right`:
 
-Given a list (1 2 3), you need an operator (I'll call it op) such that
+Given a list `(1 2 3)`, you need an operator (I'll call it `op`) such that
 
-(op 1 (op 2 (op 3 nil)))
+`(op 1 (op 2 (op 3 nil)))`
 
 results in
 
-(3 2 1)
-
+`(3 2 1)`
+{% highlight scm %}
 (define (reverse sequence)
   (fold-right (lambda (x y) (append y (list x))) nil sequence))
-For fold-left, you need an operator such that, given a list (1 2 3),
+{% endhighlight %}
 
-(op (op (op nil 3) 2) 1)
+For `fold-left`, you need an operator such that, given a list `(1 2 3)`,
+
+`(op (op (op nil 3) 2) 1)`
 
 Evaluates to
 
-(3 2 1) 
+`(3 2 1)` 
 
+{% highlight scm %}
 (define (reverse sequence)
   (fold-left (lambda (x y) (cons y x)) nil sequence))
+{% endhighlight %}
+
 It was easiest to look at the innermost expression and figure out a way to build the term I want.
 
-Working through these definitely helped my understanding, but it would take a lot more practice before either fold-left or fold-right feels natural, and before it's immediately obvious whether a left fold or right fold is the best fit for a given operation.
+Working through these definitely helped my understanding, but it would take a lot more practice before either `fold-left` or `fold-right` feels natural, and before it's immediately obvious whether a left fold or right fold is the best fit for a given operation.
