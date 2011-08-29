@@ -75,7 +75,7 @@ With infix notation I could describe these as:
 
 For the mathematical operators above, `fold-left` conforms to what you would get if you were to work your way through the list from left to right with a calculator, as 1 ÷ 2 ÷ 3 ÷ 4 =.
 
-Moving on to the list operator:
+Moving on to the `list` operator:
 {% highlight scm %}
 ;;fold-right
 (fold-right list nil (list 1 2 3))
@@ -98,34 +98,55 @@ Moving on to the list operator:
 (iter (((() 1) 2) 3) (list))
 (((() 1) 2) 3)
 ;; or:
-(list (list (list nil 3) 2) 1)
+(list (list (list nil 1) 2) 3)
 
 {% endhighlight %}
 `fold-right` seems clear as a recursive process. You take the first item from the list and apply the operator to it and the `fold-right` of the remainder of the list. One confusing thing is that the initial term provided to the procedure feels like a terminal term when I work through the substitution: it's the last thing the operator works on when it reaches the end of the list. It is, I suppose, the first thing the get evaluated in the chain of deferred recursive expressions.
 
-I have a harder time describing `fold-left`. As noted above, it feels natural with mathematical operators and conforms to what I get from a calculator. As explained in this Stack Exchange question, these operators are left-associative, so `fold-left` feels natural. With other operators (like `cons`), `fold-right` starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either `fold-left` or `fold-right`.
+I have a harder time describing `fold-left`. As noted above, it feels natural with mathematical operators and conforms to what I get from a calculator. As explained in [this Stack Exchange question](http://stackoverflow.com/questions/1446419/how-do-you-know-when-to-use-fold-left-and-when-to-use-fold-right), these operators are left-associative, so `fold-left` feels natural. With other operators (like `cons`), `fold-right` starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either `fold-left` or `fold-right`.
 
-Exercise 2.39 has you define reverse in terms of both `fold-left` and `fold-right`. First, `fold-right`:
+Exercise 2.39 has you define a function `reverse` in terms of both `fold-left` and `fold-right`. First, `fold-right`:
 
-Given a list `(1 2 3)`, you need an operator (I'll call it `op`) such that
+Given a list `(1 2 3)`, you need an operator (I'll call it `op`) such that the expression `(op 1 (op 2 (op 3 nil)))` evaluates to `(3 2 1)`. Breaking it down even further,
 
-`(op 1 (op 2 (op 3 nil)))`
+* `(op 3 nil)` should evaluate to `(3)`.
 
-results in
+* `(op 2 (list 3))` should evaluate to `(3 2)`.
 
-`(3 2 1)`
+* `(op 1 (list 3 2))` should evaluate to `(3 2 1)`.
+
+Dealing with each in turn:
+
+* `(append nil (list 3))` evaluates to `(3)`.
+
+* `(append (list 3) (list 2))` evaluates to `(3 2)`.
+
+* `(append (list 3 2) (list 1))` evaluates to `(3 2 1)`.
+
+Expressing this pattern as a lambda is `(lambda (x y) (append y (list x)))`. We can now use that lambda expression to define the `reverse` procedure in terms of `fold-right`
+
 {% highlight scm %}
 (define (reverse sequence)
   (fold-right (lambda (x y) (append y (list x))) nil sequence))
 {% endhighlight %}
 
-For `fold-left`, you need an operator such that, given a list `(1 2 3)`,
+For `fold-left`, you need an operator such that, given a list `(1 2 3)`, the expression `(op (op (op nil 1) 2) 3)` evaluates to `(3 2 1)` 
 
-`(op (op (op nil 3) 2) 1)`
+* `(op nil 1)` should evaluate to `(1)`
 
-Evaluates to
+* `(op (list 1) 2)` should evaluate to `(2 1)`
 
-`(3 2 1)` 
+* `(op (list 2 1) 3)` should evaluate to `(3 2 1)`
+
+The operator for each step
+
+* `(cons 1 nil)` evaluates to `(1)`
+
+* `(cons 2 (list 1))` evaluates to `(2 1)`.
+
+* `(cons 3 (list 2 1))` evaluates to `(3 2 1)`.
+
+The lambda expression for such a function is `(lambda (x y) (cons y x))`. Using that lambda expression in `fold-left` yields:
 
 {% highlight scm %}
 (define (reverse sequence)
