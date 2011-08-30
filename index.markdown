@@ -8,6 +8,7 @@ Source for exercises and examples from [Structure and Interpretation of Computer
 
 I've tried to consolidate various sources of code used in an SICP class.
 
+## Code
 **assignments**: Assignments from the [Sample Programming Assigmnets on the SICP web site.](http://mitpress.mit.edu/sicp/psets/)
 Some of these are old, and have dependencies on an older version of MIT Scheme. I'll try to update as necessary, but I'm not paying strong attention to these problem sets.
 
@@ -21,3 +22,9 @@ Projects from [MIT OpenCourseWare course 6.001](http://ocw.mit.edu/courses/elect
 **exercises**
 These are my attempts at solutions to the exercises in the book. I'm not currently attempting to be complete, and my sollutions may be completely wrong. Caveat Schemer.
 
+## Exercises
+I've written up some posts on my solutions to the exercises. I'll be migrating them from Blogger to Github pages.
+
+{% for post in site.posts %}
+* [{{ post.title }}](/sicp{{ post.url }})
+{% endfor %}	
