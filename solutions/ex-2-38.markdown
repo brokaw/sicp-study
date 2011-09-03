@@ -1,6 +1,8 @@
 ---
 layout: default
 title: 'Exercise 2.38 & 2.39: Fold-left and fold-right'
+category: ch1
+tags: exercises
 ---
 #{{ page.title }}
 
