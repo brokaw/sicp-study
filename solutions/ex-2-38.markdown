@@ -3,7 +3,6 @@ layout: default
 ---
 # Exercise 2.38
 
-These exercises didn't take too long to complete, but I'm still not sure I understand the implications of it, so I'm going to work through it here.
 
 The `accumulate` procedure in the text is the same as a Scheme procedure called `fold-right`. There's a similar procedure called `fold-left` that can be defined like this:
 {% highlight scheme %}
@@ -16,7 +15,16 @@ The `accumulate` procedure in the text is the same as a Scheme procedure called 
   (iter initial sequence))
 {% endhighlight %}
 
-The first exercise has you work through some sample expressions to see how the two differ. Here are my expansions, using the substitution model we've been using in the text so far.
+**What are the values of the following expressions:**
+
+{% highlight scheme %}
+(fold-right / 1 (list 1 2 3))
+(fold-left / 1 (list 1 2 3))
+(fold-right list nil (list 1 2 3))
+(fold-left list nil (list 1 2 3))
+{% endhighlight %}
+
+Here are my expansions, using the substitution model we've been using in the text so far.
 
 {% highlight scheme %}
 (fold-right / 1 (list 1 2 3))
@@ -42,6 +50,7 @@ The first exercise has you work through some sample expressions to see how the t
 
 {% endhighlight %}
 Just in case having the initial parameter the same as the first term of the list (i.e., the two 1's) is hiding an error, I'm going to do it again with my own list where every number is unique.
+
 {% highlight scm %}
 (fold-right / 1 (list 2 3 4))
 (/ 2 (fold-right / 1 (list 3 4)))
@@ -50,7 +59,6 @@ Just in case having the initial parameter the same as the first term of the list
 (/ 2 (/ 3 4))
 (/ 2 3/4)
 8/3
-
 
 (fold-left / 1 (list 2 3 4))
 (iter 1 (list 2 3 4))
@@ -64,8 +72,8 @@ Just in case having the initial parameter the same as the first term of the list
 
 ;; or:
 (/ (/ (/ 1 2) 3) 4)
-
 {% endhighlight %}
+
 With infix notation I could describe these as:
 
 `(((1 ÷ 2) ÷ 3) ÷ 4)` for `fold-left` and
@@ -75,6 +83,7 @@ With infix notation I could describe these as:
 For the mathematical operators above, `fold-left` conforms to what you would get if you were to work your way through the list from left to right with a calculator, as 1 ÷ 2 ÷ 3 ÷ 4 =.
 
 Moving on to the `list` operator:
+
 {% highlight scm %}
 ;;fold-right
 (fold-right list nil (list 1 2 3))
@@ -98,11 +107,11 @@ Moving on to the `list` operator:
 (((() 1) 2) 3)
 ;; or:
 (list (list (list nil 1) 2) 3)
-
 {% endhighlight %}
+
 `fold-right` seems clear as a recursive process. You take the first item from the list and apply the operator to it and the `fold-right` of the remainder of the list. One confusing thing is that the initial term provided to the procedure feels like a terminal term when I work through the substitution: it's the last thing the operator works on when it reaches the end of the list. It is, I suppose, the first thing the get evaluated in the chain of deferred recursive expressions.
 
-I have a harder time describing `fold-left`. As noted above, it feels natural with mathematical operators and conforms to what I get from a calculator. As explained in [this Stack Exchange question](http://stackoverflow.com/questions/1446419/how-do-you-know-when-to-use-fold-left-and-when-to-use-fold-right), these operators are left-associative, so `fold-left` feels natural. With other operators (like `cons`), `fold-right` starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either `fold-left` or `fold-right`.
+I have a harder time describing `fold-left`. As noted above, it feels natural with mathematical operators and conforms to the algebraic notation of a calculator. These operators are left-associative, so `fold-left` feels natural. With other operators (like `cons`), `fold-right` starts feeling more natural. If your operator is commutative, like addition and multiplication, your result will be the same with either `fold-left` or `fold-right`.
 
 -
 

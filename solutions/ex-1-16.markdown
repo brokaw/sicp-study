@@ -7,7 +7,7 @@ title: 'Exercise 1.16'
 
 **Design a procedure that evolves an iterative exponentiation process that uses successive squaring and uses a logarithmic number of steps, as does fast-expt.**
 
-From the hints
+From the hints:
 
 * $ (b^{n/2})^{2} = (b^{2})^{n/2} $
 * $ ab^{n} $ should have the same value through the transition.

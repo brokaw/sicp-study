@@ -3,11 +3,20 @@ layout: default
 ---
 # Exercise 2.39
 
-**Define a function `reverse` in terms of both `fold-left` and `fold-right`.**
+**Complete the following definitions of `reverse` in terms of both `fold-left` and `fold-right`.**
+
+{% highlight scheme %}
+(define (reverse sequence)
+  (fold-right (lambda (x y) <??>) nil sequence))
+(define (reverse sequence)
+  (fold-left (lambda (x y) <??>) nil sequence))
+{% endhighlight %}
+
+-
 
 First, `fold-right`:
 
-Given a list `(1 2 3)`, you need an operator (I'll call it `op`) such that the expression `(op 1 (op 2 (op 3 nil)))` evaluates to `(3 2 1)`. Breaking it down even further,
+Given a list `(1 2 3)`, I need an operator (I'll call it `op`) such that the expression `(op 1 (op 2 (op 3 nil)))` evaluates to `(3 2 1)`. Breaking it down even further,
 
 * `(op 3 nil)` should evaluate to `(3)`.
 
@@ -23,14 +32,14 @@ Dealing with each in turn:
 
 * `(append (list 3 2) (list 1))` evaluates to `(3 2 1)`.
 
-Expressing this pattern as a lambda is `(lambda (x y) (append y (list x)))`. We can now use that lambda expression to define the `reverse` procedure in terms of `fold-right`
+Expressing this pattern as a lambda is `(lambda (x y) (append y (list x)))`. I can now use that lambda expression to define the `reverse` procedure in terms of `fold-right`
 
 {% highlight scm %}
 (define (reverse sequence)
   (fold-right (lambda (x y) (append y (list x))) nil sequence))
 {% endhighlight %}
 
-For `fold-left`, you need an operator such that, given a list `(1 2 3)`, the expression `(op (op (op nil 1) 2) 3)` evaluates to `(3 2 1)` 
+For `fold-left`, I need an operator such that, given a list `(1 2 3)`, the expression `(op (op (op nil 1) 2) 3)` evaluates to `(3 2 1)` 
 
 * `(op nil 1)` should evaluate to `(1)`
 
