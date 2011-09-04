@@ -33,3 +33,7 @@ Here is the procedure.
           ((even? n) (fast-helper a (* b b) (/ n 2)))))
   (fast-helper 1 x y))
 {% endhighlight %}
+
+-
+
+Repository source: [exer_1-16.scm](https://github.com/brokaw/sicp/blob/master/exercises/exer_1-16.scm)
