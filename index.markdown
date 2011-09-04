@@ -22,9 +22,8 @@ Projects from [MIT OpenCourseWare course 6.001](http://ocw.mit.edu/courses/elect
 **exercises**
 These are my attempts at solutions to the exercises in the book. I'm not currently attempting to be complete, and my sollutions may be completely wrong. Caveat Schemer.
 
-## Exercises
+## Exercises & Notes
 I've written up some posts on my solutions to the exercises. I'll be migrating them from Blogger to Github pages.
 
-{% for post in site.posts %}
-* [{{ post.title }}](/sicp{{ post.url }})
-{% endfor %}	
+* [Notes on Section 1.2]({{site.url}}notes/section-1-2.html)
+	

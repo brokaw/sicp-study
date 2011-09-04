@@ -1,0 +1,58 @@
+---
+layout: default
+---
+# Exercise 2.39
+
+**Define a function `reverse` in terms of both `fold-left` and `fold-right`.**
+
+First, `fold-right`:
+
+Given a list `(1 2 3)`, you need an operator (I'll call it `op`) such that the expression `(op 1 (op 2 (op 3 nil)))` evaluates to `(3 2 1)`. Breaking it down even further,
+
+* `(op 3 nil)` should evaluate to `(3)`.
+
+* `(op 2 (list 3))` should evaluate to `(3 2)`.
+
+* `(op 1 (list 3 2))` should evaluate to `(3 2 1)`.
+
+Dealing with each in turn:
+
+* `(append nil (list 3))` evaluates to `(3)`.
+
+* `(append (list 3) (list 2))` evaluates to `(3 2)`.
+
+* `(append (list 3 2) (list 1))` evaluates to `(3 2 1)`.
+
+Expressing this pattern as a lambda is `(lambda (x y) (append y (list x)))`. We can now use that lambda expression to define the `reverse` procedure in terms of `fold-right`
+
+{% highlight scm %}
+(define (reverse sequence)
+  (fold-right (lambda (x y) (append y (list x))) nil sequence))
+{% endhighlight %}
+
+For `fold-left`, you need an operator such that, given a list `(1 2 3)`, the expression `(op (op (op nil 1) 2) 3)` evaluates to `(3 2 1)` 
+
+* `(op nil 1)` should evaluate to `(1)`
+
+* `(op (list 1) 2)` should evaluate to `(2 1)`
+
+* `(op (list 2 1) 3)` should evaluate to `(3 2 1)`
+
+The operator for each step
+
+* `(cons 1 nil)` evaluates to `(1)`
+
+* `(cons 2 (list 1))` evaluates to `(2 1)`.
+
+* `(cons 3 (list 2 1))` evaluates to `(3 2 1)`.
+
+The lambda expression for such a function is `(lambda (x y) (cons y x))`. Using that lambda expression in `fold-left` yields:
+
+{% highlight scm %}
+(define (reverse sequence)
+  (fold-left (lambda (x y) (cons y x)) nil sequence))
+{% endhighlight %}
+
+It was easiest to look at the innermost expression and figure out a way to build the term I want.
+
+Working through these definitely helped my understanding, but it would take a lot more practice before either `fold-left` or `fold-right` feels natural, and before it's immediately obvious whether a left fold or right fold is the best fit for a given operation.
