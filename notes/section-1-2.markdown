@@ -42,7 +42,7 @@ Translating this to a procedure is often more difficult.
   (iter 1 1))
 {% endhighlight %}
 
-Iterative processes carry all their state with them from one step of the iteration to the next. Every time the procedure 'iter' is called, all the information necessary to evaluate iter is passed on. Compare to the recursive procedure above, where the expression '(* n (factorial (- n 1))' can't be fully evaluated until the the last factorial call reaches the base case of n = 0.
+Iterative processes carry all their state with them from one step of the iteration to the next. Every time the procedure `iter` is called, all the information necessary to evaluate iter is passed on. Compare to the recursive procedure above, where the expression `(* n (factorial (- n 1))` can't be fully evaluated until the the last factorial call reaches the base case of n = 0.
 
 The fact that the Scheme procedure above calls itself doesn't mean that the process is recursive. The key differentiator is whether the procedure call contains all the information it needs to evalute, or whether evaluation is deferred to a future call to the procedure.
 
@@ -64,9 +64,9 @@ The procedure for this is
                  (fib (- n 0))))))
 {% endhighlight %}
 
-Each call to to Fib where n > 1 generates two more calls to Fib. The + operator has to wait for both of those calls to return before it can evaluate its arguments.
+Each call to to `fib` where n > 1 generates two more calls to `fib`. The + operator has to wait for both of those calls to return before it can evaluate its arguments.
 
-The tree recursive definition of this procedure results in a lot of duplicate work. Figure 1.5 on page 38 illustrates that '(fib 3)' is computed twice.
+The tree recursive definition of this procedure results in a lot of duplicate work. Figure 1.5 on page 38 illustrates that `(fib 3)` is computed twice.
 
 **Orders of Growth**
 
@@ -76,9 +76,9 @@ For the recursive factorial procedure above, as the input grows, the number of s
 
 For the iterative factorial procedure, the steps grow as Θ(n), but the space required to calculate is fully capture by the state variables in each iteration, and never grows. The growth of the space is Θ(1).
 
-The tree-recursive Fibonacci sequence requires $\theta(\phi^{n})$ steps (where φ is the golden ratio) and space Θ(n).
+The tree-recursive Fibonacci sequence requires $\theta(\phi^{n})$ steps (where $\phi$ is the golden ratio) and space Θ(n).
 
-Some problems can be halved. For example, exponentiation. $b^{4}$ can be calculated as:
+Some problems can be halved. For example, exponentiation. $b^{8}$ can be calculated as:
 
 $$ b \times b \times b \times b \times b \times b \times b \times b $$
 
