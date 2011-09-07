@@ -1,11 +1,12 @@
 ---
-layout: default
+layout: notes
 title: 'Exercise 1.16'
+category: solutions
 ---
 
-# Exercise 1.16
+# {{ page.title }}
 
-**Design a procedure that evolves an iterative exponentiation process that uses successive squaring and uses a logarithmic number of steps, as does fast-expt.**
+**Design a procedure that evolves an iterative exponentiation process that uses successive squaring and uses a logarithmic number of steps, as does `fast-expt`.**
 
 From the hints:
 

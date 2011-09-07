@@ -1,7 +1,9 @@
 ---
-layout: default
+title: Exercise 2.39
+layout: notes
+category: solutions
 ---
-# Exercise 2.39
+# {{ page.title }}
 
 **Complete the following definitions of `reverse` in terms of both `fold-left` and `fold-right`.**
 

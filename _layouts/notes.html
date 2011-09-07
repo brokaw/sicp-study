@@ -1,0 +1,14 @@
+---
+layout: default
+---
+<div id="content">
+{{ content }}
+</div>
+<div id="navigation">
+<h3>Navigation</h3>
+{% if page.category == 'notes' %}
+{% include notes-nav.html %}
+{% elsif page.category == 'solutions' %}
+{% include solutions-nav.html %}
+{% endif %}
+</div>

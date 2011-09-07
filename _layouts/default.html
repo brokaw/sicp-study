@@ -14,9 +14,17 @@
     }
     #container {
       margin: 0 auto;
-      width: 700px;
+      width: 800px;
+      position:relative;
     }
-    h1 { font-size: 3.8em; color: #98584d; margin-bottom: 3px; }
+    #navigation {
+    	position: absolute;
+    	top: 0;
+    	left: 0;
+    	width: 10em;
+    }
+    #content { margin-left: 14em; }
+    h1 { font-size: 2em; color: #98584d; margin-bottom: 3px; }
     h1 .small { font-size: 0.4em; }
     h1 a { text-decoration: none }
     h2 { font-size: 1.5em; color: #98584d; }
@@ -26,6 +34,7 @@
     .download { float: right; }
     hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
     .footer { text-align:center; padding-top:30px; font-style: italic; }
+
   </style>
 <link href="/sicp/css/syntax.css" rel="stylesheet" type="text/css">
 <script type="text/javascript">
@@ -57,7 +66,6 @@ MathJax.Hub.Config({
   <a href="http://github.com/brokaw/sicp"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
 
   <div id="container">
-
 {{ content }}
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/brokaw/sicp">brokaw/sicp</a>

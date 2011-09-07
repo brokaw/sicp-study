@@ -1,8 +1,9 @@
 ---
+title: Index of Exercise Solutions
 layout: default
 ---
 
-# Index of Exercise Solutions 
+#  {{ page.title }}
 
 ## Chapter 1
 
