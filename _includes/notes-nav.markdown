@@ -1,1 +1,1 @@
-* [Section 1.2](/notes/section-1-2.html)
+* [Section 1.2](section-1-2.html)
