@@ -5,7 +5,6 @@ category: solutions
 ---
 # {{ page.title }}
 
-
 The `accumulate` procedure in the text is the same as a Scheme procedure called `fold-right`. There's a similar procedure called `fold-left` that can be defined like this:
 {% highlight scheme %}
 (define (fold-left op initial sequence)
@@ -25,6 +24,8 @@ The `accumulate` procedure in the text is the same as a Scheme procedure called 
 (fold-right list nil (list 1 2 3))
 (fold-left list nil (list 1 2 3))
 {% endhighlight %}
+
+-
 
 Here are my expansions, using the substitution model we've been using in the text so far.
 
