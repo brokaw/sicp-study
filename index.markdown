@@ -26,10 +26,10 @@ Projects from [MIT OpenCourseWare course 6.001](http://ocw.mit.edu/courses/elect
 These are my attempts at solutions to the exercises in the book. I'm not currently attempting to be complete, and my solutions may be completely wrong. Caveat Schemer.
 
 ## Exercises & Notes
-I've written up some posts on my [solutions]({{site.url}}solutions/) to the exercises and [notes]({{site.url}}notes/) on the text. I'll be migrating them from Blogger to Github Pages.
+I've written up some posts on my [solutions]({{site.url}}/solutions/) to the exercises and [notes]({{site.url}}/notes/) on the text. I'll be migrating them from Blogger to Github Pages.
 
 ## Blog
 For posts about my work on the site and the exercises.
 {% for post in site.posts %}
-* [{{ post.title }}]({{ post.url }})
+* [{{ post.title }}]({{ site.url }}{{ post.url }})
 {% endfor %}
