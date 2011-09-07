@@ -1,5 +1,5 @@
 ---
-title: Index of Exercise Solutions
+title: Index of SICP Exercise Solutions
 layout: default
 ---
 
