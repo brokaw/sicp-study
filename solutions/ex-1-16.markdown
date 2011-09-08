@@ -8,10 +8,12 @@ category: solutions
 
 **Design a procedure that evolves an iterative exponentiation process that uses successive squaring and uses a logarithmic number of steps, as does `fast-expt`.**
 
-From the hints:
+Hints:
 
 * $ (b^{n/2})^{2} = (b^{2})^{n/2} $
 * $ ab^{n} $ should have the same value through the transition.
+
+-
 
 I want to decrease the exponent until it equals zero, at which point the result variable, _a_, will have the result. So the question is: when I halve the exponent _n_, how can I modify _a_ and _b_ so that the value $ ab^{n} $ is unchanged, and that we're somehow closer to the result?
 
@@ -23,6 +25,8 @@ So my strategy is:
 
 * If _n_ is even, halve _n_, square _b_, and leave _a_ alone
 * If _n_ is odd, decrement _n_ by 1, and multiply _a_ by _b_.
+
+When _n_ is reduced to zero, $b^{n} = 1$ and the final answer is _a_.
 
 Here is the procedure.
 
@@ -37,4 +41,4 @@ Here is the procedure.
 
 -
 
-Repository source: [exer_1-16.scm](https://github.com/brokaw/sicp/blob/master/exercises/exer_1-16.scm)
+[Repository source](https://github.com/brokaw/sicp/blob/master/exercises/exer_1-16.scm)
