@@ -1,3 +1,4 @@
 pygments: true
 safe: true
 url: http://brokaw.github.com/sicp
+exclude: src, makenav.sh
