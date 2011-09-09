@@ -34,7 +34,7 @@ For reference, here is the procedure `count-change`:
 
 Here is a diagram I came up with:
 
-<a href='/images/ex-1-14-diagram.png'><img src='/images/ex-1-14-diagram-thumb.png' alt='count-change diagram' /></a>
+<a href='/sicp/images/ex-1-14-diagram.png'><img src='/sicp/images/ex-1-14-diagram-thumb.png' alt='count-change diagram' /></a>
 
 From section 1.2.2:
 
