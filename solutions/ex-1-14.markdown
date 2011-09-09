@@ -1,0 +1,81 @@
+---
+layout: notes
+title: 'Exercise 1.14'
+category: solutions
+---
+# {{ page.title }}
+
+**Draw the tree for `(count-change 11)` and give the order of growth of space and number of steps.**
+
+-
+
+For reference, here is the procedure `count-change`:
+
+{% highlight scm %}
+(define (count-change amount)
+  (cc amount 5))
+
+(define (cc amount kinds-of-coins)
+  (cond ((= amount 0) 1)
+        ((or (< amount 0) (= kinds-of-coins 0)) 0)
+        (else (+ (cc amount
+                     (- kinds-of-coins 1))
+                 (cc (- amount
+                        (first-denomination kinds-of-coins))
+                     kinds-of-coins)))))
+
+(define (first-denomination kinds-of-coins)
+  (cond ((= kinds-of-coins 1) 1)
+        ((= kinds-of-coins 2) 5)
+        ((= kinds-of-coins 3) 10)
+        ((= kinds-of-coins 4) 25)
+        ((= kinds-of-coins 5) 50)))
+{% endhighlight %}
+
+Here is a diagram I came up with:
+
+<a href='/images/ex-1-14-diagram.png'><img src='/images/ex-1-14-diagram-thumb.png' alt='count-change diagram' /></a>
+
+From section 1.2.2:
+
+> In general, the number of steps required by a tree-recursive process will be proportional to the number of nodes in the tree, while the space required will be proportional to the maximum depth of the tree.
+    
+In the change-counting procedure, the deepest branch will always be the branch that represents the case of all pennies (or `(cc _n_ 1)`). You can see that such a branch will always be _n_ steps deep. Thus the order of growth of the space is $\Theta(n)$.
+
+The order of growth of steps is less clear. A couple of things that stand out:
+
+1. For the case of `(cc _n_ 1)`, the number of steps generated will be $2n + 1$. This is linear growth of $\Theta(n)$.
+1. You can see duplicate work in the example above. `(cc 6 1)` is computed twice. `(cc 1 1)` is computed four times.
+
+Point number 2 is important, as the number 11 was small, and fifty-cent pieces and quarters were ruled out right away. Suppose we tried `(cc 51 5)`. This would compute
+
+`(cc 51 4)` and `(cc 1 5)`
+
+`(cc 1 5)` is probably not significant. (I'm guessing 11 steps based on the behavior of `(cc 1 2)` and `(cc 1 3)` above).
+
+(cc 51 4) will reduce to
+
+`(cc 26 4)` and `(cc 51 3)`
+
+In both of these cases, the two expressions will work down to the case of all pennies: `(cc 26 1)` and `(cc 51 1)`. Since `(cc 26 1)` is a subproblem of `(cc 51 1)`, I can see that `(cc 26 1)` is going to be computed at least twice. Beyond that, I can see a reduction to
+
+`(cc 51 3)` $\to$ `(cc 41 3)` $\to$ `(cc 31 3)` $\to$ `(cc 26 3)` $\to$ `(cc 26 1)`
+
+which is a third evaluation of `(cc 26 1)`. And so on.
+
+I'm not sure where all of this leaves me, however. The compounding of work has the _feel_ of a exponential function, but I don't know what the base would be, and I'm not sure how to find out.
+
+-
+
+References:
+
+* [Ken Dyck's solution](http://www.kendyck.com/archives/2005/04/25/solution-to-sicp-exercise-114/)
+
+    Don't miss the discussion in the comments.
+    
+* [Bill the Lizard's solution](http://www.billthelizard.com/2009/12/sicp-exercise-114-counting-change.html)
+
+    Bill identifies a growth in time of $\Theta(n^{5})$.
+
+
+
