@@ -76,7 +76,7 @@ For the recursive factorial procedure above, as the input grows, the number of s
 
 For the iterative factorial procedure, the steps grow as Θ(n), but the space required to calculate is fully capture by the state variables in each iteration, and never grows. The growth of the space is Θ(1).
 
-The tree-recursive Fibonacci sequence requires $\Theta(\phi^{n})$ steps (where $\phi$ is the golden ratio) and space $\Theta(n)$.
+The tree-recursive Fibonacci sequence requires $\Theta(\phi^{n})$ steps (where $\phi$ is the golden ratio) and space $\Theta(n)$. (Huh? The _golden ratio_?! Where did that come from? I have no idea, and it's not explained in the text.)
 
 Some problems can be halved. For example, exponentiation. $b^{8}$ can be calculated as:
 
@@ -90,4 +90,4 @@ $b^{4}$ can be reduced to
 
 $$ b^{2} \times b^{2} $$
 
-and so on. The steps for calulating exponents this way grow at $\theta(\log n)$.
+and so on. The steps for calulating exponents this way grow at $\Theta(\log n)$.
