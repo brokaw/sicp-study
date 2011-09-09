@@ -2,6 +2,7 @@
 title: Orders of growth
 layout: default
 ---
+#{{ page.title }}
 
 Yesterday I backtracked my progress and worked on an exercise from chapter 1. For the most part I've been pretty good about doing the exercises, but for some reason I skipped exercise 1.14. I realized it when I started having difficulty analyzing the order of growth for exercise 2.63. Today I submitted a draft solution to 1.14, and will finish up a draft solution to 2.63.
 
