@@ -9,7 +9,7 @@ date: Fri Oct 14 13:51:20 2011
 
 `map` can be combined with other procedures `accumulate` and `filter` to build up a conventional way of dealing with sequenced data. Two examples from the text:
 
-**Example 1** This program takes a tree, goes through it to find all leaves containing an odd number, and squares those odd leaves, and adds the squares together.
+**Program 1** This program takes a tree, goes through it to find all leaves containing an odd number, and squares those odd leaves, and adds the squares together.
 
 {% highlight scm %}
 (define (sum-odd-squares tree)
@@ -20,7 +20,7 @@ date: Fri Oct 14 13:51:20 2011
                  (sum-odd-squares (cdr tree))))))
 {% endhighlight %}
 
-Program 2 This procedure takes a number n and produces a list of even Fibonacci numbers equal to or less than Fib(n).
+**Program 2** This procedure takes a number _n_ and produces a list of even Fibonacci numbers equal to or less than _Fib(n)_.
 
 {% highlight scm %}
 (define (even-fibs n)
@@ -36,10 +36,10 @@ Program 2 This procedure takes a number n and produces a list of even Fibonacci 
 
 The programs don't seem to have a lot in common, but they can be understood like this:
 
-Program 1
+**Program 1**
 Enumerate tree leaves &rarr; Filter odd leaves &rarr; map square procedure &rarr; Accumulate with +
 
-Program 2
+**Program 2**
 Enumerate integers &rarr; map fib procdure &rarr; filter even results &rarr; accumulate with cons.
 
 Seen this way you can abstact out the notions of filtering and accumulating, and the two actually look very similar.
@@ -56,13 +56,11 @@ To filter we can define
 
 (filter odd? (list 1 2 3 4 5))
 ;Value: (1 3 5)
-
 {% endhighlight %}
 
 and to accumulate
 
 {% highlight scm %}
-
 (define (accumulate op initial sequence)
   (if (null? sequence)
       initial
@@ -77,13 +75,11 @@ and to accumulate
 
 (accumulate cons nil (list 1 2 3 4 5))
 ;Value: (1 2 3 4 5)
-
 {% endhighlight %}
 
-We can now define the above procedures in terms of map, filter, and accumulate.
+We can now define the above procedures in terms of `map`, `filter`, and `accumulate`.
 
 {% highlight scm %}
-
 (define (sum-odd-squares tree)
   (accumulate +
               0
