@@ -41,4 +41,4 @@ Here is the procedure.
 
 -
 
-[Repository source](https://github.com/brokaw/sicp/blob/master/exercises/exer_1-16.scm)
+[Repository source](https://github.com/brokaw/sicp-study/blob/master/exercises/exer_1-16.scm)
