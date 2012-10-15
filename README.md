@@ -1,4 +1,4 @@
-See the [project site](http://brokaw.github.com/sicp/) for more information.
+See the [project site](http://brokaw.github.com/sicp-study/) for more information.
 
 Source for _Structure and Interpretation of Computer Programs_
 http://mitpress.mit.edu/sicp/full-text/book/book.html
@@ -21,4 +21,4 @@ http://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-001-str
 **exercises**
 These are my attempts at solutions to the exercises in the book. I'm not currently attempting to be complete, and my solutions may be completely wrong. Caveat Schemer.
 
-There is also a gh-pages branch containing the [site](http://brokaw.github.com/sicp/), with more detailed solutions on (some of) the exercises, notes, and more.
+There is also a gh-pages branch containing the [site](http://brokaw.github.com/sicp-study/), with more detailed solutions on (some of) the exercises, notes, and more.
